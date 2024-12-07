@@ -1,7 +1,11 @@
 package ie.setu
 import controller.CarAPI
 import utils.readIntNotNull
+import java.io.File
+import persistence.JSONSerializer
 
+
+private val carAPI = CarAPI(JSONSerializer(File("cars.json")))
 
 /*There will be the main menu for the app and also the
 * user interface that a fan of cars like myself would likely love

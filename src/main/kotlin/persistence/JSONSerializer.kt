@@ -1,18 +1,28 @@
 package persistence
 
-// This is an interface called `Serializer` that defines how to save and load data.
-interface Serializer {
-    /*
-     * This function takes an object and saves it (like saving a file).
-     * It can throw an error if something goes wrong.
-     */
-    @Throws(Exception::class)
-    fun write(obj: Any?)
+import com.thoughtworks.xstream.XStream
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver
+import models.Car
+import java.io.File
+import java.io.FileReader
+import java.io.FileWriter
 
-    /*
-     * This function loads (or reads) the saved object and brings it back.
-     * It can also throw an error if something goes wrong.
-     */
+class JSONSerializer(private val file: File) : Serializer {
     @Throws(Exception::class)
-    fun read(): Any?
+    override fun read(): Any {
+        val xStream = XStream(JettisonMappedXmlDriver())
+        xStream.allowTypes(arrayOf(Car::class.java))
+        val inputStream = xStream.createObjectInputStream(FileReader(file))
+        val obj = inputStream.readObject() as Any
+        inputStream.close()
+        return obj
+    }
+
+    @Throws(Exception::class)
+    override fun write(obj: Any?) {
+        val xStream = XStream(JettisonMappedXmlDriver())
+        val outputStream = xStream.createObjectOutputStream(FileWriter(file))
+        outputStream.writeObject(obj)
+        outputStream.close()
+    }
 }
