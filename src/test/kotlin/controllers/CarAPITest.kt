@@ -1,6 +1,5 @@
 package controller
 
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer
 import ie.setu.Car
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
