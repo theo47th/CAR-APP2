@@ -1,11 +1,15 @@
 package ie.setu
+
+
 import controller.CarAPI
+import persistence.JSONSerializer
 import utils.readIntNotNull
 import java.io.File
-import persistence.JSONSerializer
-
 
 private val carAPI = CarAPI(JSONSerializer(File("cars.json")))
+
+
+
 
 /*There will be the main menu for the app and also the
 * user interface that a fan of cars like myself would likely love
@@ -15,6 +19,9 @@ private val carAPI = CarAPI(JSONSerializer(File("cars.json")))
 * the community with knowledge about new models hopefully with the rewards
 * system il have a way to store it for the user*/
 
+
+
+/*1) user interface */
 fun main(args: Array<String>) {
     runMenu()
 
@@ -153,6 +160,7 @@ fun load(carAPI: CarAPI) {
         System.err.println("Error reading from file: $e")
     }
 }
+
 
 data class Car(
     val make: String,
